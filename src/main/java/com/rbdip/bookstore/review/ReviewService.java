@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
  * репозитории пакета order, вместо обращения через выделенный контракт
  * (интерфейс/событие). Это цель для выделения модуля review по Strangler
  * Fig в ЛР4 - после рефакторинга ArchitectureRulesTest (пакет reference)
- * должен зафиксировать отсутствие такой зависимости.
+ * должен зафиксировать отсутствие такой зависимости. (solved)
  */
 @Service
 public class ReviewService {
