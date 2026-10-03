@@ -1,11 +1,13 @@
 package com.rbdip.bookstore.order.utils;
 
 import com.rbdip.bookstore.order.CreateOrderRequest;
+import com.rbdip.bookstore.order.persistence.CustomerRepository;
 import com.rbdip.bookstore.order.Order;
 import com.rbdip.bookstore.order.OrderItem;
 import com.rbdip.bookstore.order.OrderItemRepository;
 import com.rbdip.bookstore.order.OrderRepository;
 import com.rbdip.bookstore.order.PricingCalculator;
+import com.rbdip.bookstore.order.domain.Customer;
 import com.rbdip.bookstore.product.Product;
 import java.util.List;
 import org.springframework.stereotype.Service;
@@ -17,14 +19,22 @@ public class OrderPersistenceService {
 
     private final OrderRepository repository;
     private final OrderItemRepository itemRepository;
+    private final CustomerRepository customerRepository;
 
-    public OrderPersistenceService(OrderRepository orderRepository, OrderItemRepository orderItemRepository) {
+    public OrderPersistenceService(OrderRepository orderRepository, OrderItemRepository orderItemRepository, CustomerRepository customerRepository) {
         this.repository = orderRepository;
         this.itemRepository = orderItemRepository;
+        this.customerRepository = customerRepository;
     }
 
     public Order saveOrder(CreateOrderRequest request, List<Product> products, List<PricingCalculator.LineItem> lineItems) {
-        Order order = new Order(request.customerFullName(), request.customerAddress(), request.customerPhone(), NEW_ORDER_STATUS);
+        Customer customer = customerRepository.findFirstByFullNameAndAddressAndPhone(
+                request.customerFullName(), request.customerAddress(), request.customerPhone())
+                .orElseGet(() -> customerRepository.save(new Customer(
+                        request.customerFullName(), request.customerAddress(), request.customerPhone())));
+
+
+        Order order = new Order(customer, NEW_ORDER_STATUS);
 
         Order saved = repository.save(order);
         for (int i = 0; i < products.size(); i++) {
