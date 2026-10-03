@@ -28,10 +28,11 @@ public class OrderPersistenceService {
     }
 
     public Order saveOrder(CreateOrderRequest request, List<Product> products, List<PricingCalculator.LineItem> lineItems) {
-        Customer customer = customerRepository.findFirstByFullNameAndAddressAndPhone(
-                request.customerFullName(), request.customerAddress(), request.customerPhone())
-                .orElseGet(() -> customerRepository.save(new Customer(
-                        request.customerFullName(), request.customerAddress(), request.customerPhone())));
+        Customer newCustomer = new Customer(request.customerFullName(), request.customerAddress(), request.customerPhone());
+
+        Customer customer = customerRepository.findFirstByFirstNameAndLastNameAndAddressAndPhone(
+                newCustomer.getFirstName(), newCustomer.getLastName(), newCustomer.getAddress(), newCustomer.getPhone())
+                .orElseGet(() -> customerRepository.save(newCustomer));
 
 
         Order order = new Order(customer, NEW_ORDER_STATUS);
