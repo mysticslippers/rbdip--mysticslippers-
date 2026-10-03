@@ -27,17 +27,8 @@ public class Order {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer_id")
+    @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
-
-    @Column(name = "customer_full_name", nullable = false)
-    private String customerFullName;
-
-    @Column(name = "customer_address")
-    private String customerAddress;
-
-    @Column(name = "customer_phone")
-    private String customerPhone;
 
     @Column(nullable = false)
     private String status;
@@ -49,16 +40,9 @@ public class Order {
         // for JPA
     }
 
-    public Order(String customerFullName, String customerAddress, String customerPhone, String status) {
-        this.customerFullName = customerFullName;
-        this.customerAddress = customerAddress;
-        this.customerPhone = customerPhone;
-        this.status = status;
-    }
-
     public Order(Customer customer, String status) {
-        this(customer.getFullName(), customer.getAddress(), customer.getPhone(), status);
         this.customer = customer;
+        this.status = status;
     }
 
     public Long getId() {
@@ -70,15 +54,15 @@ public class Order {
     }
 
     public String getCustomerFullName() {
-        return customerFullName;
+        return customer.getFullName();
     }
 
     public String getCustomerAddress() {
-        return customerAddress;
+        return customer.getAddress();
     }
 
     public String getCustomerPhone() {
-        return customerPhone;
+        return customer.getPhone();
     }
 
     public String getStatus() {

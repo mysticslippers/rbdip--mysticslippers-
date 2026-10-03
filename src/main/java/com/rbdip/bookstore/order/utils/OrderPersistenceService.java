@@ -40,7 +40,7 @@ public class OrderPersistenceService {
         for (int i = 0; i < products.size(); i++) {
             Product product = products.get(i);
             int quantity = lineItems.get(i).quantity();
-            itemRepository.save(new OrderItem(saved.getId(), product.getName(), product.getPrice(), quantity));
+            itemRepository.save(new OrderItem(saved.getId(), product, quantity));
         }
 
         return saved;
