@@ -26,7 +26,7 @@ public class ReviewService {
     public Review addReview(Long productId, String authorName, Integer rating, String comment) {
         // NB: в текущей "грязной" версии verifiedPurchase не используется дальше,
         // но сам факт прямого обращения к order-репозиториям отсюда - и есть
-        // намеренная связанность, которую нужно устранить.
+        // намеренная связанность, которую нужно устранить. (solved)
         boolean verifiedPurchase = purchaseFinder.hasAnyOrdersAndItems();
         Review review = new Review(productId, authorName == null ? "anonymous" : authorName, rating, comment);
         return reviewRepository.save(review);
