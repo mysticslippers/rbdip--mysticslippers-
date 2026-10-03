@@ -16,7 +16,7 @@ import java.time.Instant;
  * Намеренно денормализованная сущность: хранит "сырые" контактные данные
  * клиента прямо в заказе вместо ссылки на отдельную таблицу customers.
  * Это цель для нормализации схемы в ЛР2, а поле customerFullName - цель
- * expand-contract миграции в ЛР3 (разбить на firstName/lastName).
+ * expand-contract миграции в ЛР3 (разбить на firstName/lastName). (solved)
  */
 @Entity
 @Table(name = "orders")
