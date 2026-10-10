@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * God-класс: валидация, расчёт цены, персистентность и "уведомление
- * клиента" смешаны в одном методе. Цель для рефакторинга по SRP в ЛР1.
+ * клиента" смешаны в одном методе. Цель для рефакторинга по SRP в ЛР1. (solved)
  */
 @Service
 public class OrderService {

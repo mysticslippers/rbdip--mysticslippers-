@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Модуль расчёта цены заказа. Намеренно почти не покрыт тестами и
  * содержит magic numbers / нечитаемые ветвления скидок - цель для
- * характеризационных тестов (ЛР2) и mutation-testing гейта PIT (ЛР5).
+ * характеризационных тестов (ЛР2) и mutation-testing гейта PIT (ЛР5). (solved)
  */
 public class PricingCalculator {
 
